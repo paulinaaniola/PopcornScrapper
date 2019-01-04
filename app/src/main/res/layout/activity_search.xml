@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@color/colorTransparentBackground">
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="100dp"
+            android:orientation="vertical">
+
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/popcorn_rounded"/>
+
+        <com.popcornscrapper.popcornscrapper.SourceProRegularTextView
+                android:id="@+id/findRatingsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="26dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="@string/lets_find_dome_movie"/>
+
+        <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <com.popcornscrapper.popcornscrapper.RobotoLightButton
+                android:layout_marginTop="20dp"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_frame_primary"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/search"
+        />
+
+
+    </LinearLayout>
+</FrameLayout>

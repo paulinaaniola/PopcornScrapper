@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">POPCORN SCRAPPER</string>
+    <string name="app_name">Popcorn Scrapper</string>
     <string name="progress_loading_text">Loading data...</string>
     <string name="blank_edit_text_error">This field can not be blank</string>
 

@@ -1,4 +1,4 @@
-package com.tsdproject.pokerplanning.service
+package com.popcornscrapper.popcornscrapper.service
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

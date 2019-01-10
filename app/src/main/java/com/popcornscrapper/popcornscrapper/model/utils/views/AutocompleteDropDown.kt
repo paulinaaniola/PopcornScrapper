@@ -33,7 +33,7 @@ class AutocompleteDropDown : AppCompatAutoCompleteTextView {
 
     fun setupDropDown() {
         setDropDownBackgroundDrawable(ResUtil.getDrawable(R.drawable.rounded_frame_white))
-        threshold = 3
+        threshold = 1
         setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 showDropDown()
@@ -74,15 +74,11 @@ class AutocompleteDropDown : AppCompatAutoCompleteTextView {
             }
 
             override fun afterTextChanged(editable: Editable) {
-                if (editable.length > 2) {
-                    lastEditText = System.currentTimeMillis()
-                    dropDownHandler.postDelayed(
-                        handleDropDownSearchRequest(adapter, editable),
-                        dropDownDelay
-                    )
-                } else {
-                    adapter.clearDropDownAdapterItems()
-                }
+                lastEditText = System.currentTimeMillis()
+                dropDownHandler.postDelayed(
+                    handleDropDownSearchRequest(adapter, editable),
+                    dropDownDelay
+                )
             }
         }
     }
@@ -93,7 +89,7 @@ class AutocompleteDropDown : AppCompatAutoCompleteTextView {
     ): Runnable {
         return Runnable {
             if (System.currentTimeMillis() > lastEditText + dropDownDelay - 500) {
-                adapter?.handleDropDownSearchRequest(editable, textInputLayout)
+                adapter?.handleDropDownSearchRequest(editable.toString().toLowerCase(), textInputLayout)
             }
         }
     }

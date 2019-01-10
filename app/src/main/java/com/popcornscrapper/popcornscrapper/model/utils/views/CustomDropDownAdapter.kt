@@ -32,7 +32,7 @@ abstract class CustomDropDownAdapter internal constructor(
 
     abstract fun getCustomView(position: Int, dropDownItem: View?, parent: ViewGroup): View
 
-    abstract fun handleDropDownSearchRequest(editable: Editable?, textInputLayout: TextInputLayout?)
+    abstract fun handleDropDownSearchRequest(text: String, textInputLayout: TextInputLayout?)
 
     abstract fun clearDropDownAdapterItems()
 }

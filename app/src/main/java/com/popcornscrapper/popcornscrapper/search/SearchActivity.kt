@@ -36,7 +36,7 @@ class SearchActivity : BaseActivity(), SearchView {
     }
 
     private fun setupDropDown() {
-        val recentMoviesAdapter = PatientsDropDownAdapter(ApplicationContext.appContext)
+        val recentMoviesAdapter = MoviesDropDownAdapter(ApplicationContext.appContext)
         dropDownLayout = AutocompleteDropDownLayout(ApplicationContext.appContext, dropDownFrameLayout)
         recentMoviesAdapter.autocompleteDropdown = (dropDownLayout as AutocompleteDropDownLayout).autocompleteTextView
         dropDownLayout?.setAdapter(recentMoviesAdapter)
@@ -59,8 +59,6 @@ class SearchActivity : BaseActivity(), SearchView {
             movies = LinkedList()
         }
         movies.push(newMovie)
-        movies?.let {
-            Database().putRecentMovies(movies)
-        }
+        Database().putRecentMovies(movies)
     }
 }

@@ -10,10 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.popcornscrapper.popcornscrapper.R
+import com.popcornscrapper.popcornscrapper.model.utils.database.Database
 import com.popcornscrapper.popcornscrapper.model.utils.views.CustomDropDownAdapter
 import kotlinx.android.synthetic.main.dialog_drop_down_patient.view.*
 
-class PatientsDropDownAdapter internal constructor(
+class MoviesDropDownAdapter internal constructor(
     context: Context?
 ) : CustomDropDownAdapter(context, R.layout.dialog_drop_down_patient) {
 
@@ -41,7 +42,7 @@ class PatientsDropDownAdapter internal constructor(
     override fun setDropDownAdapterItems(dropDownItems: MutableList<String>) {
         this.movies.clear()
         this.movies = dropDownItems.toMutableList()
-        notifyDataSetChanged ()
+        notifyDataSetChanged()
     }
 
     override fun clearDropDownAdapterItems() {
@@ -52,9 +53,12 @@ class PatientsDropDownAdapter internal constructor(
     }
 
     override fun handleDropDownSearchRequest(
-        editable: Editable?,
+        text: String,
         textInputLayout: TextInputLayout?
     ) {
-
+        val savedMovies = Database().getRecentMovies()
+        savedMovies?.filter { it.toLowerCase().contains(text) }?.let {
+            setDropDownAdapterItems(it.toMutableList())
+        }
     }
 }

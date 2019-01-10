@@ -26,7 +26,7 @@ abstract class CustomDropDownAdapter internal constructor(
         return getCustomView(position, dropDownItem, parent)
     }
 
-    abstract fun setDropDownAdapterItems(dropDownItems: List<String>)
+    abstract fun setDropDownAdapterItems(dropDownItems: MutableList<String>)
 
     abstract fun dropDownItemOnClick(dropDownItem: Any)
 

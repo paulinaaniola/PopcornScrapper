@@ -7,6 +7,7 @@ import com.popcornscrapper.popcornscrapper.BaseActivity
 import com.popcornscrapper.popcornscrapper.BasePresenter
 import com.popcornscrapper.popcornscrapper.R
 import com.popcornscrapper.popcornscrapper.search.SearchActivity
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : BaseActivity(), SplashView {
@@ -23,6 +24,7 @@ class SplashActivity : BaseActivity(), SplashView {
         presenter = SplashPresenterImpl(this)
         setupLogoFont()
         setupNextViewDelay()
+        Paper.init(applicationContext)
     }
 
     override fun setupNextViewDelay() {

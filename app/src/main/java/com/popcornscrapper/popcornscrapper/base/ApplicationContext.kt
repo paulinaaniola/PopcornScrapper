@@ -3,6 +3,7 @@ package com.popcornscrapper.popcornscrapper
 import android.content.Context
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
+import io.paperdb.Paper
 import timber.log.Timber
 
 class ApplicationContext : MultiDexApplication() {

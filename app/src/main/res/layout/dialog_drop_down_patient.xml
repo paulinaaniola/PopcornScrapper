@@ -9,15 +9,15 @@
         android:orientation="vertical">
 
     <TextView
-            android:background="@color/colorPrimaryLight"
+            android:background="@drawable/rounded_frame_white"
             android:id="@+id/movieNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginTop="4dp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"/>
-
 
     <View
             android:id="@+id/grayLine"

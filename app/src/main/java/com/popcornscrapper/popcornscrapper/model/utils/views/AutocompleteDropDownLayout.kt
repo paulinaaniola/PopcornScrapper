@@ -62,10 +62,6 @@ class AutocompleteDropDownLayout : FrameLayout {
         textInputLayout.typeface = Typeface.createFromAsset(context.assets, "fonts/SourceCodePro-Regular.ttf")
     }
 
-    override fun setId(id: Int) {
-        textInputLayout.id = id
-    }
-
     fun setHint(hint: String) {
         textInputLayout.hint = hint
     }

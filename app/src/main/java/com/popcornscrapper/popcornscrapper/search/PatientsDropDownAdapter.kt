@@ -38,7 +38,7 @@ class PatientsDropDownAdapter internal constructor(
         autocompleteDropdown.dismissDropDown()
     }
 
-    override fun setDropDownAdapterItems(dropDownItems: List<String>) {
+    override fun setDropDownAdapterItems(dropDownItems: MutableList<String>) {
         this.movies.clear()
         this.movies = dropDownItems.toMutableList()
         notifyDataSetChanged ()

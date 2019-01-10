@@ -1,5 +1,6 @@
 package com.popcornscrapper.popcornscrapper.search
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import com.popcornscrapper.popcornscrapper.ApplicationContext
@@ -9,6 +10,7 @@ import com.popcornscrapper.popcornscrapper.BasePresenter
 import com.popcornscrapper.popcornscrapper.R
 import com.popcornscrapper.popcornscrapper.model.utils.database.Database
 import com.popcornscrapper.popcornscrapper.model.utils.views.AutocompleteDropDownLayout
+import com.popcornscrapper.popcornscrapper.movies.MoviesActivity
 import kotlinx.android.synthetic.main.activity_search.*
 import java.util.*
 
@@ -48,9 +50,14 @@ class SearchActivity : BaseActivity(), SearchView {
 
     private fun setupSearchButton() {
         searchButton.setOnClickListener {
-            val movie = dropDownLayout?.autocompleteTextView?.text.toString()
-            if (movie.isNotEmpty()) addSearchedMovieToDatabase(movie)
+            onSearchButtonClick()
         }
+    }
+
+    private fun onSearchButtonClick() {
+        val movie = dropDownLayout?.autocompleteTextView?.text.toString()
+        if (movie.isNotEmpty()) addSearchedMovieToDatabase(movie)
+        startActivity(Intent(this, MoviesActivity::class.java))
     }
 
     private fun addSearchedMovieToDatabase(newMovie: String) {

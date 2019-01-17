@@ -9,9 +9,11 @@ import com.popcornscrapper.popcornscrapper.BaseActivity
 import com.popcornscrapper.popcornscrapper.BasePresenter
 import com.popcornscrapper.popcornscrapper.R
 import com.popcornscrapper.popcornscrapper.model.utils.database.Database
+import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieListItem
 import com.popcornscrapper.popcornscrapper.model.utils.views.AutocompleteDropDownLayout
 import com.popcornscrapper.popcornscrapper.movies.MoviesActivity
 import kotlinx.android.synthetic.main.activity_search.*
+import timber.log.Timber
 import java.util.*
 
 class SearchActivity : BaseActivity(), SearchView {
@@ -43,7 +45,11 @@ class SearchActivity : BaseActivity(), SearchView {
         recentMoviesAdapter.autocompleteDropdown = (dropDownLayout as AutocompleteDropDownLayout).autocompleteTextView
         dropDownLayout?.setAdapter(recentMoviesAdapter)
         Database().getRecentMovies()?.let {
-            recentMoviesAdapter.setDropDownAdapterItems(it)
+            if (it.size > 5) {
+                recentMoviesAdapter.setDropDownAdapterItems(it.subList(0, 4))
+            } else {
+                recentMoviesAdapter.setDropDownAdapterItems(it)
+            }
         }
         dropDownFrameLayout.addView(dropDownLayout)
     }
@@ -55,9 +61,9 @@ class SearchActivity : BaseActivity(), SearchView {
     }
 
     private fun onSearchButtonClick() {
-        val movie = dropDownLayout?.autocompleteTextView?.text.toString()
-        if (movie.isNotEmpty()) addSearchedMovieToDatabase(movie)
-        startActivity(Intent(this, MoviesActivity::class.java))
+        val searchedTitle = dropDownLayout?.autocompleteTextView?.text.toString()
+        if (searchedTitle.isNotEmpty()) addSearchedMovieToDatabase(searchedTitle)
+        presenter.getMovies(searchedTitle)
     }
 
     private fun addSearchedMovieToDatabase(newMovie: String) {
@@ -65,8 +71,13 @@ class SearchActivity : BaseActivity(), SearchView {
         if (movies == null) {
             Database().putRecentMovies(LinkedList(listOf(newMovie)))
         } else if (!(movies.contains(newMovie) || movies.contains(newMovie.toLowerCase()))) {
+            movies.remove(newMovie)
             movies.push(newMovie)
             Database().putRecentMovies(movies)
         }
+    }
+
+    override fun navigateToMoviesList(movies: List<MovieListItem>){
+        startActivity(Intent(this, MoviesActivity::class.java))
     }
 }

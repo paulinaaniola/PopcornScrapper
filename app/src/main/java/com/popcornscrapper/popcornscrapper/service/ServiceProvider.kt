@@ -2,14 +2,13 @@ package com.popcornscrapper.popcornscrapper.service
 
 object ServiceProvider {
 
-    var SERVICE_ENDPOINT: String = ""
-    private const val DYNAMIC_ADDRESS_ENDPOINT = "https://sandbox27.neocities.org/"
+    var SERVICE_ENDPOINT: String = "http://13.81.106.52"
 
-//    var dynamicAddressService: DynamicAddressApi? = null
-//        get() = if (field == null) ServiceFactory.createRetrofitService(
-//            DynamicAddressApi::class.java,
-//            DYNAMIC_ADDRESS_ENDPOINT
-//        ) else field
+    var moviesService: Api? = null
+        get() = if (field == null) ServiceFactory.createRetrofitService(
+            Api::class.java,
+            SERVICE_ENDPOINT
+        ) else field
 
 }
 

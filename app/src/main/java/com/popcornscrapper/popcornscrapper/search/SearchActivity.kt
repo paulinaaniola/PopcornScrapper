@@ -63,9 +63,10 @@ class SearchActivity : BaseActivity(), SearchView {
     private fun addSearchedMovieToDatabase(newMovie: String) {
         var movies = Database().getRecentMovies()
         if (movies == null) {
-            movies = LinkedList()
+            Database().putRecentMovies(LinkedList(listOf(newMovie)))
+        } else if (!(movies.contains(newMovie) || movies.contains(newMovie.toLowerCase()))) {
+            movies.push(newMovie)
+            Database().putRecentMovies(movies)
         }
-        movies.push(newMovie)
-        Database().putRecentMovies(movies)
     }
 }

@@ -4,10 +4,15 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
+
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:background="@android:color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_height="100dp"
+            android:clickable="true"
+            style="@style/SelectableItemBackground">
 
         <ImageView
                 android:id="@+id/movieImageView"

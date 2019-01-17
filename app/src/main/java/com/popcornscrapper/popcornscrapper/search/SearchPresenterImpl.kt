@@ -22,6 +22,7 @@ class SearchPresenterImpl(var view: SearchView) : SearchPresenter, GetMoviesRece
 
     override fun onGetMoviesSuccess(movies: List<MovieListItem>) {
         view.stopProgressDialog()
+        view.navigateToMoviesList(movies)
     }
 
     override fun onGetMovieError() {

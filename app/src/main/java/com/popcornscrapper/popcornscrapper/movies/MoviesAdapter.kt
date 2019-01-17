@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.popcornscrapper.popcornscrapper.R
-import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.Movie
+import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieListItem
 import kotlinx.android.synthetic.main.item_movie_list.view.*
 
-class MoviesAdapter(val movies: List<Movie>) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+class MoviesAdapter(val movies: List<MovieListItem>) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_movie_list, parent, false)
@@ -24,11 +24,11 @@ class MoviesAdapter(val movies: List<Movie>) : RecyclerView.Adapter<MoviesAdapte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.movieTitle.text = movies[position].title
-        holder.productionNameTextView.text = movies[position].productionYear
+        holder.productionYearTextView.text = movies[position].year
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val productionNameTextView: TextView = view.productionYearTextView
+        val productionYearTextView: TextView = view.productionYearTextView
         val movieImageView: ImageView = view.movieImageView
         val movieTitle: TextView = view.movieTitleTextView
     }

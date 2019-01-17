@@ -8,6 +8,8 @@ import com.popcornscrapper.popcornscrapper.ApplicationContext.Companion.appConte
 import com.popcornscrapper.popcornscrapper.BaseActivity
 import com.popcornscrapper.popcornscrapper.BasePresenter
 import com.popcornscrapper.popcornscrapper.R
+import com.popcornscrapper.popcornscrapper.model.utils.IntentKeys
+import com.popcornscrapper.popcornscrapper.model.utils.businessobjects.MoviesDTO
 import com.popcornscrapper.popcornscrapper.model.utils.database.Database
 import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieListItem
 import com.popcornscrapper.popcornscrapper.model.utils.views.AutocompleteDropDownLayout
@@ -77,7 +79,8 @@ class SearchActivity : BaseActivity(), SearchView {
         }
     }
 
-    override fun navigateToMoviesList(movies: List<MovieListItem>){
-        startActivity(Intent(this, MoviesActivity::class.java))
+    override fun navigateToMoviesList(movies: List<MovieListItem>) {
+        val bundle: Bundle = Bundle().apply { putSerializable(IntentKeys.MOVIES, MoviesDTO(movies)) }
+        startActivity(Intent(this, MoviesActivity::class.java).putExtras(bundle))
     }
 }

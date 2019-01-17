@@ -7,6 +7,7 @@ import com.popcornscrapper.popcornscrapper.BaseActivity
 import com.popcornscrapper.popcornscrapper.BasePresenter
 import com.popcornscrapper.popcornscrapper.R
 import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.Movie
+import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieListItem
 import kotlinx.android.synthetic.main.activity_movies.*
 
 class MoviesActivity : BaseActivity(), MoviesView {
@@ -21,11 +22,12 @@ class MoviesActivity : BaseActivity(), MoviesView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
         presenter = MoviesPresenterImpl(this)
-        moviesRecyclerView.layoutManager = LinearLayoutManager(ApplicationContext.appContext)
-        moviesRecyclerView.adapter = MoviesAdapter(getMovies())
     }
 
-    fun getMovies(): List<Movie> {
-        return listOf(Movie("Birdman", "1999", ""), Movie("Spider-man", "2001", ""))
+    override fun setupMoviesAdapter(movies: List<MovieListItem>?) {
+        moviesRecyclerView.layoutManager = LinearLayoutManager(ApplicationContext.appContext)
+        movies?.let {
+            moviesRecyclerView.adapter = MoviesAdapter(movies)
+        }
     }
 }

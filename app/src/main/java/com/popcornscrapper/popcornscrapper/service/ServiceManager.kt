@@ -49,9 +49,10 @@ object ServiceManager {
         setupRequest(ServiceProvider
             .moviesService
             ?.getImdbDetails(movieId),
-            Action1 { receiver.onGetImdbDetailsSuccess(it as MovieImdbTO) },
-            Action1 { receiver.onGetImdbDetailsError() }
-        )
+            Action1 { receiver.onGetImdbDetailsSuccess(it as List<MovieImdbTO>) },
+            Action1 { e ->
+                receiver.onGetImdbDetailsError()
+            }        )
     }
 
     fun getMetacriticRating(

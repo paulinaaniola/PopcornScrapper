@@ -4,6 +4,6 @@ import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieImd
 
 
 interface GetImdbDetailsReceiver {
-    fun onGetImdbDetailsSuccess(movie: MovieImdbTO)
+    fun onGetImdbDetailsSuccess(movie: List<MovieImdbTO>)
     fun onGetImdbDetailsError()
 }

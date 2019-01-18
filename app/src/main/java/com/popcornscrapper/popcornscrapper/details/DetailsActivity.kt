@@ -4,14 +4,13 @@ import android.os.Bundle
 import com.popcornscrapper.popcornscrapper.BaseActivity
 import com.popcornscrapper.popcornscrapper.BasePresenter
 import com.popcornscrapper.popcornscrapper.R
-import com.popcornscrapper.popcornscrapper.movies.MoviesPresenter
-import com.popcornscrapper.popcornscrapper.movies.MoviesPresenterImpl
-import com.popcornscrapper.popcornscrapper.movies.MoviesView
+import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieImdbTO
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*
 
 class DetailsActivity : BaseActivity(), DetailsView {
 
-    private lateinit var presenter: DetailsPresenter
+    private lateinit var presenter: DetailsPresenterImpl
 
     override fun providePresenter(): BasePresenter? {
         return presenter
@@ -23,7 +22,19 @@ class DetailsActivity : BaseActivity(), DetailsView {
         presenter = DetailsPresenterImpl(this)
     }
 
-    override fun setupMovieTitle(movieTitle: String){
+    override fun onStart() {
+        super.onStart()
+        presenter.getImdbDetails()
+    }
+
+    override fun setupMovieTitle(movieTitle: String) {
         movieTitleTextView.text = movieTitle
+    }
+
+    override fun setMovieDetails(movie: MovieImdbTO) {
+        directorTextView.text = movie.director
+        movieDescriptionTextView.text = movie.plot
+        imdbRatingTextView.text = movie.rating
+        Picasso.get().load(movie.poster).into(posterImageView)
     }
 }

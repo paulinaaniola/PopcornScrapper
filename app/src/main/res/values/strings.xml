@@ -4,5 +4,7 @@
     <string name="blank_edit_text_error">This field can not be blank</string>
     <string name="lets_find_dome_movie">Let\'s find some ratings!</string>
     <string name="search">search</string>
+    <string name="imdb">IMDb</string>
+    <string name="metacritic">Metacritic</string>
 
 </resources>

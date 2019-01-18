@@ -5,4 +5,5 @@ import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieLis
 
 interface MoviesView : BaseView {
     fun setupMoviesAdapter(movies: List<MovieListItem>?)
+    fun navigateToDetailsActivity(movie: MovieListItem)
 }

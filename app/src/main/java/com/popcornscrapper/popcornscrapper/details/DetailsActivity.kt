@@ -7,6 +7,7 @@ import com.popcornscrapper.popcornscrapper.R
 import com.popcornscrapper.popcornscrapper.movies.MoviesPresenter
 import com.popcornscrapper.popcornscrapper.movies.MoviesPresenterImpl
 import com.popcornscrapper.popcornscrapper.movies.MoviesView
+import kotlinx.android.synthetic.main.activity_details.*
 
 class DetailsActivity : BaseActivity(), DetailsView {
 
@@ -20,5 +21,9 @@ class DetailsActivity : BaseActivity(), DetailsView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
         presenter = DetailsPresenterImpl(this)
+    }
+
+    override fun setupMovieTitle(movieTitle: String){
+        movieTitleTextView.text = movieTitle
     }
 }

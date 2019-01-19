@@ -1,16 +1,15 @@
 package com.popcornscrapper.popcornscrapper.details
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Intent
 import com.popcornscrapper.popcornscrapper.R
 import com.popcornscrapper.popcornscrapper.ResUtil
 import com.popcornscrapper.popcornscrapper.model.utils.IntentKeys
 import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieImdbTO
+import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieMetacriticItemTO
 import com.popcornscrapper.popcornscrapper.service.ServiceManager
-import com.popcornscrapper.popcornscrapper.service.receivers.GetImdbDetailsReceiver
+import com.popcornscrapper.popcornscrapper.service.receivers.GetMovieDetailsReceiver
 
-class DetailsPresenterImpl(var view: DetailsView) : DetailsPresenter, GetImdbDetailsReceiver {
+class DetailsPresenterImpl(var view: DetailsView) : DetailsPresenter, GetMovieDetailsReceiver {
 
     private val presentationModel: DetailsModel = DetailsModel()
 
@@ -22,17 +21,19 @@ class DetailsPresenterImpl(var view: DetailsView) : DetailsPresenter, GetImdbDet
         view.setupMovieTitle(presentationModel.movieTitle)
     }
 
-    override fun getImdbDetails(){
+    override fun getImdbDetails() {
         view.startProgressDialog(ResUtil.getString(R.string.progress_loading_text))
-        ServiceManager.getImdbDetails(this, presentationModel.movieId)
+        ServiceManager.getMovieDetails(this, presentationModel.movieId, presentationModel.movieTitle.toLowerCase())
     }
 
-    override fun onGetImdbDetailsSuccess(movie: List<MovieImdbTO>) {
-        view.setMovieDetails(movie[0])
+    override fun onGetDetailsSuccess(imdbDetails: MovieImdbTO?, metacriticRating: MovieMetacriticItemTO?) {
+        imdbDetails?.let {
+            view.setMovieDetails(imdbDetails, metacriticRating?.rating)
+        }
         view.stopProgressDialog()
     }
 
-    override fun onGetImdbDetailsError() {
+    override fun onGetDetailsError() {
         view.stopProgressDialog()
     }
 }

@@ -3,6 +3,7 @@ package com.popcornscrapper.popcornscrapper.search
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.widget.Toast
 import com.popcornscrapper.popcornscrapper.ApplicationContext
 import com.popcornscrapper.popcornscrapper.ApplicationContext.Companion.appContext
 import com.popcornscrapper.popcornscrapper.BaseActivity
@@ -82,5 +83,13 @@ class SearchActivity : BaseActivity(), SearchView {
     override fun navigateToMoviesList(movies: List<MovieListItem>) {
         val bundle: Bundle = Bundle().apply { putSerializable(IntentKeys.MOVIES, MoviesDTO(movies)) }
         startActivity(Intent(this, MoviesActivity::class.java).putExtras(bundle))
+    }
+
+    override fun clearSearchEditText(){
+        dropDownLayout?.autocompleteTextView?.text?.clear()
+    }
+
+    override fun showNoResultsToast(){
+        showToast(getString(R.string.no_results_toast))
     }
 }

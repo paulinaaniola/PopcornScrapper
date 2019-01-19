@@ -3,10 +3,8 @@ package com.popcornscrapper.popcornscrapper.service
 import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieImdbTO
 import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieListItem
 import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieMetacriticItemTO
-import com.popcornscrapper.popcornscrapper.service.receivers.GetImdbDetailsReceiver
-import com.popcornscrapper.popcornscrapper.service.receivers.GetMetacriticRatingReceiver
+import com.popcornscrapper.popcornscrapper.service.receivers.GetMovieDetailsReceiver
 import com.popcornscrapper.popcornscrapper.service.receivers.GetMoviesReceiver
-import retrofit2.HttpException
 import rx.Observable
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
@@ -42,28 +40,33 @@ object ServiceManager {
         )
     }
 
-    fun getImdbDetails(
-        receiver: GetImdbDetailsReceiver,
-        movieId: String
+    fun getMovieDetails(
+        receiver: GetMovieDetailsReceiver,
+        movieId: String,
+        movieTitle: String
     ) {
-        setupRequest(ServiceProvider
-            .moviesService
-            ?.getImdbDetails(movieId),
-            Action1 { receiver.onGetImdbDetailsSuccess(it as List<MovieImdbTO>) },
-            Action1 { e ->
-                receiver.onGetImdbDetailsError()
-            }        )
-    }
+        var imdbDetails: MovieImdbTO? = null
+        var metacriticRating: MovieMetacriticItemTO? = null
+        setupRequest(
+            Observable.merge(
+                ServiceProvider.moviesService?.getImdbDetails(movieId),
+                ServiceProvider.moviesService?.getMetacriticRating(movieTitle)
+            ),
+            Action1 {
+                (it as? List<*>)?.let { responseList ->
+                    if (responseList.isNotEmpty() && responseList[0] is MovieImdbTO) {
+                        imdbDetails = responseList[0] as MovieImdbTO
+                    } else if (responseList.isNotEmpty()) {
+                        metacriticRating = responseList[0] as MovieMetacriticItemTO
+                    }
+                }
+            },
+            Action1
+            { e ->
+                receiver.onGetDetailsError()
+            },
+            Action0
+            { receiver.onGetDetailsSuccess(imdbDetails, metacriticRating) })
 
-    fun getMetacriticRating(
-        receiver: GetMetacriticRatingReceiver,
-        searchedTitle: String
-    ) {
-        setupRequest(ServiceProvider
-            .moviesService
-            ?.getMetacriticRating(searchedTitle),
-            Action1 { receiver.onGetMetacriticRatingSuccess(it as MovieMetacriticItemTO) },
-            Action1 { receiver.onGetMetacriticRatingError() }
-        )
     }
 }

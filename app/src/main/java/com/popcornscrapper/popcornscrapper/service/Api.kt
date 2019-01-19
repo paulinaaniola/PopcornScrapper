@@ -18,5 +18,5 @@ interface Api {
     fun getImdbDetails(@Path("id") id: String): Observable<List<MovieImdbTO>>
 
     @GET(("/metacritic-rating/{title}"))
-    fun getMetacriticRating(@Path("title") searchedTitle: String): Observable<MovieMetacriticItemTO>
+    fun getMetacriticRating(@Path("title") searchedTitle: String): Observable<List<MovieMetacriticItemTO>>
 }

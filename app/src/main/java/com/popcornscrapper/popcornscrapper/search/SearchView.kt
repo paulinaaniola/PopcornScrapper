@@ -5,4 +5,6 @@ import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieLis
 
 interface SearchView : BaseView {
     fun navigateToMoviesList(movies: List<MovieListItem>)
+    fun clearSearchEditText()
+    fun showNoResultsToast()
 }

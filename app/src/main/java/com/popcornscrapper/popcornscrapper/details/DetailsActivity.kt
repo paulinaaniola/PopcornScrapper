@@ -35,19 +35,17 @@ class DetailsActivity : BaseActivity(), DetailsView {
         var imdbRating = "-"
         var metaRating = "-"
         directorTextView.text = imdbDetails.director
-        movieDescriptionTextView.text = imdbDetails.plot
-        if(imdbDetails.rating != null && imdbDetails.rating.isNotEmpty()){
+        imdbDetails.plot?.let {
+            movieDescriptionTextView.text = it
+        } ?: getString(R.string.no_plot)
+        if (imdbDetails.rating != null && imdbDetails.rating.isNotEmpty()) {
             imdbRating = imdbDetails.rating + getString(R.string.per_ten)
         }
-        if(metacriticRating != null && metacriticRating.isNotEmpty()){
+        if (metacriticRating != null && metacriticRating.isNotEmpty()) {
             metaRating = metacriticRating + getString(R.string.per_houndred)
         }
         imdbRatingTextView.text = imdbRating
         metacriticRatingTextView.text = metaRating
         Picasso.get().load(imdbDetails.poster).into(posterImageView)
-    }
-
-    override fun showEmptyView(){
-
     }
 }

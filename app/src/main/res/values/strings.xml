@@ -9,5 +9,7 @@
     <string name="per_ten">/10</string>
     <string name="per_houndred">/100</string>
     <string name="no_results_toast">There are no results for this search</string>
+    <string name="fill_me">Fill me</string>
+    <string name="no_plot">There is no plot for this movie</string>
 
 </resources>

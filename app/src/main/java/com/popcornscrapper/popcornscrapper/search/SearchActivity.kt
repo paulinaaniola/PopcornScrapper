@@ -3,6 +3,7 @@ package com.popcornscrapper.popcornscrapper.search
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Toast
 import com.popcornscrapper.popcornscrapper.ApplicationContext
 import com.popcornscrapper.popcornscrapper.ApplicationContext.Companion.appContext
@@ -33,6 +34,7 @@ class SearchActivity : BaseActivity(), SearchView {
         setContentView(R.layout.activity_search)
         presenter = SearchPresenterImpl(this)
         appContext = applicationContext
+        window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setupFonts()
         setupDropDown()
         setupSearchButton()
@@ -65,7 +67,12 @@ class SearchActivity : BaseActivity(), SearchView {
 
     private fun onSearchButtonClick() {
         val searchedTitle = dropDownLayout?.autocompleteTextView?.text.toString()
-        if (searchedTitle.isNotEmpty()) addSearchedMovieToDatabase(searchedTitle)
+        if (searchedTitle.isNotEmpty()) {
+            dropDownLayout?.autocompleteTextView?.error = null
+            addSearchedMovieToDatabase(searchedTitle)
+        } else {
+            dropDownLayout?.autocompleteTextView?.setError(getString(R.string.fill_me))
+        }
         presenter.getMovies(searchedTitle)
     }
 

@@ -58,7 +58,11 @@ class MoviesDropDownAdapter internal constructor(
     ) {
         val savedMovies = Database().getRecentMovies()
         savedMovies?.filter { it.toLowerCase().contains(text) }?.let {
-            setDropDownAdapterItems(it.toMutableList())
+            if (it.size > 5) {
+                setDropDownAdapterItems(it.subList(0, 4).toMutableList())
+            } else {
+                setDropDownAdapterItems(it.toMutableList())
+            }
         }
     }
 }

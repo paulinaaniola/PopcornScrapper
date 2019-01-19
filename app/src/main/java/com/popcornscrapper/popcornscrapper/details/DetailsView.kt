@@ -6,5 +6,4 @@ import com.popcornscrapper.popcornscrapper.model.utils.transportobjects.MovieImd
 interface DetailsView : BaseView {
     fun setupMovieTitle(movieTitle: String)
     fun setMovieDetails(imdbDetails: MovieImdbTO, metacriticRating: String?)
-    fun showEmptyView()
 }

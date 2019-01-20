@@ -62,14 +62,6 @@ class AutocompleteDropDownLayout : FrameLayout {
         textInputLayout.typeface = Typeface.createFromAsset(context.assets, "fonts/SourceCodePro-Regular.ttf")
     }
 
-    fun setHint(hint: String) {
-        textInputLayout.hint = hint
-    }
-
-    fun setInputType(inputType: Int) {
-        autocompleteTextView.inputType = inputType
-    }
-
     fun setAdapter(adapter: CustomDropDownAdapter) {
         autocompleteTextView.setAdapter(adapter)
         autocompleteTextView.setupDropDownTextWatcher(adapter, textInputLayout)

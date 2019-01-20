@@ -25,15 +25,9 @@ class AutocompleteDropDown : AppCompatAutoCompleteTextView {
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    fun disableDropdown() {
-        dropDownHeight = 0
-        setAdapter(null)
-        removeTextChangedListener(textWatcher)
-    }
-
     fun setupDropDown() {
         setDropDownBackgroundDrawable(ResUtil.getDrawable(R.drawable.rounded_frame_white))
-        threshold = 1
+        threshold = 0
         setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 showDropDown()
@@ -41,11 +35,6 @@ class AutocompleteDropDown : AppCompatAutoCompleteTextView {
         }
         setLines(1)
     }
-//
-//    private fun setupFont() {
-//        typeface = Typeface.createFromAsset(context.assets, "fonts/Poppins-Light.ttf")
-//        textSize = ResUtil.getDimenDp(R.dimen.edit_text_text_size).toFloat()
-//    }
 
     fun setupDropDownTextWatcher(adapter: CustomDropDownAdapter, textInputLayout: TextInputLayout) {
         dropDownAdapter = adapter

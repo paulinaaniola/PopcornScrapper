@@ -21,14 +21,14 @@ class DetailsPresenterImpl(var view: DetailsView) : DetailsPresenter, GetMovieDe
         view.setupMovieTitle(presentationModel.movieTitle)
     }
 
-    override fun getImdbDetails() {
+    override fun getMovieDetails() {
         view.startProgressDialog(ResUtil.getString(R.string.progress_loading_text))
         ServiceManager.getMovieDetails(this, presentationModel.movieId, presentationModel.movieTitle.toLowerCase())
     }
 
     override fun onGetDetailsSuccess(imdbDetails: MovieImdbTO?, metacriticRating: MovieMetacriticItemTO?) {
         imdbDetails?.let {
-            view.setMovieDetails(imdbDetails, metacriticRating?.rating)
+            view.fillMovieDetails(imdbDetails, metacriticRating)
         }
         view.stopProgressDialog()
     }

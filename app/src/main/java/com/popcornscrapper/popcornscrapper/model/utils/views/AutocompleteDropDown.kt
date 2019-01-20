@@ -72,6 +72,11 @@ class AutocompleteDropDown : AppCompatAutoCompleteTextView {
         }
     }
 
+    // workaround for treshold = 0. Documentation: When threshold is less than or equals 0, a threshold of 1 is applied.
+    override fun enoughToFilter(): Boolean{
+        return true
+    }
+
     private fun handleDropDownSearchRequest(
         adapter: CustomDropDownAdapter?,
         editable: Editable?

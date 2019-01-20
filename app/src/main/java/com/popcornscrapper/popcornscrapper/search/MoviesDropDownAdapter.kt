@@ -57,16 +57,23 @@ class MoviesDropDownAdapter internal constructor(
         textInputLayout: TextInputLayout?
     ) {
         val savedMovies = Database().getRecentMovies()
+        var filteredMovies = mutableListOf<String>()
         if (text.isEmpty() && savedMovies != null) {
-            setDropDownAdapterItems(savedMovies.subList(0, 4).toMutableList())
+            filteredMovies =
+                    if (savedMovies.size > 5) {
+                        savedMovies.subList(0, 4).toMutableList()
+                    } else {
+                        savedMovies
+                    }
         } else {
             savedMovies?.filter { it.toLowerCase().contains(text) }?.let {
-                if (it.size > 5) {
-                    setDropDownAdapterItems(it.subList(0, 4).toMutableList())
+                filteredMovies = if (it.size > 5) {
+                    it.subList(0, 4).toMutableList()
                 } else {
-                    setDropDownAdapterItems(it.toMutableList())
+                    it.toMutableList()
                 }
             }
         }
+        setDropDownAdapterItems(filteredMovies)
     }
 }
